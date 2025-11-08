@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini HUD Flash Tool</title>
+    
+    <!-- Import esp-web-tools -->
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .subtitle {
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .warning-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .warning-box::before {
+            content: '⚠️';
+            font-size: 24px;
+            margin-right: 15px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        }
+        
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .firmware-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .firmware-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: #f8f9fa;
+        }
+        
+        .firmware-card:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+        }
+        
+        .firmware-card.selected {
+            border-color: #667eea;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+        }
+        
+        .firmware-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .firmware-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        esp-web-install-button {
+            display: block;
+            margin: 20px 0;
+        }
+        
+        esp-web-install-button::part(button) {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        esp-web-install-button::part(button):hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .serial-section {
+            margin-top: 30px;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 15px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        select, input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        textarea {
+            width: 100%;
+            height: 200px;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            resize: vertical;
+            background: #f8f9fa;
+        }
+        
+        .status-box {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        
+        .config-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 100px;
+            gap: 15px;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .config-row label {
+            font-weight: 600;
+            text-align: right;
+        }
+        
+        .info-box {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .success-box::before {
+            content: '✅';
+            font-size: 24px;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Mini HUD Flash Tool</h1>
+        <p class="subtitle">Công cụ cập nhật firmware cho HUD Mini</p>
+        
+        <div class="warning-box">
+            <div>
+                <strong>Yêu cầu:</strong> Chrome hoặc Edge trên máy tính. Không hỗ trợ Safari, Firefox hoặc iOS.
+            </div>
+        </div>
+
+        <!-- CARD 1: FLASH FIRMWARE -->
+        <div class="card">
+            <h2>📦 Cập nhật Firmware</h2>
+            
+            <div class="info-box">
+                <strong>Hướng dẫn:</strong> Chọn phiên bản thiết bị của bạn, sau đó nhấn nút "INSTALL" để bắt đầu.
+            </div>
+            
+            <h3 style="margin: 20px 0 15px 0; color: #667eea;">Chọn phiên bản thiết bị:</h3>
+            
+            <div class="firmware-grid">
+                <div class="firmware-card" data-manifest="manifest_v1.json" data-hardware="V1">
+                    <div class="firmware-name">🎯 HUD MINI V1</div>
+                </div>
+                
+                <div class="firmware-card selected" data-manifest="manifest_v2.json" data-hardware="V2">
+                    <div class="firmware-name">🎯 HUD MINI V2</div>
+                </div>
+            </div>
+            
+            <div id="flash-button-container">
+            </div>
+            
+            <div class="success-box" style="display: none;" id="success-message">
+                <div>
+                    <strong>Hoàn thành!</strong> Thiết bị đã được cập nhật firmware thành công.
+                </div>
+            </div>
+        </div>
+
+        <!-- CARD 2: SERIAL CONFIG -->
+        <div class="card">
+            <h2>⚙️ Cấu hình qua Serial</h2>
+            
+            <button id="btnConnect">🔌 Kết nối Serial</button>
+            <div id="status" class="status-box">📡 Chưa kết nối</div>
+            
+            <div id="config-controls" style="display: none;">
+                
+                <!-- 1. VERSION CHECK -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 15px 0; color: #667eea;">1️⃣ Kiểm tra phiên bản</h3>
+                    <button id="btnCheckVersion" style="margin-bottom: 10px;">📋 Gửi lệnh VERSION</button>
+                    <div id="versionDisplay" style="
+                        background: white;
+                        border: 2px solid #667eea;
+                        padding: 15px;
+                        border-radius: 8px;
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #667eea;
+                    ">Chưa kiểm tra</div>
+                </div>
+                
+                <!-- 2. SCREEN ROTATION -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 15px 0; color: #667eea;">2️⃣ Xoay màn hình</h3>
+                    <div class="config-row">
+                        <label>Chọn hướng:</label>
+                        <select id="selRotation">
+                            <option value="1">Hướng 1</option>
+                            <option value="2">Hướng 2</option>
+                            <option value="3">Hướng 3</option>
+                            <option value="4">Hướng 4</option>
+                            <option value="5">Hướng 5</option>
+                            <option value="6">Hướng 6</option>
+                            <option value="7">Hướng 7</option>
+                            <option value="8">Hướng 8</option>
+                        </select>
+                        <button id="btnRotation">Gửi</button>
+                    </div>
+                </div>
+                
+                <!-- 3. UI SELECTION -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 15px 0; color: #667eea;">3️⃣ Chọn giao diện</h3>
+                    <div class="config-row">
+                        <label>Giao diện:</label>
+                        <select id="selUI">
+                            <option value="U1">UI 1</option>
+                            <option value="U2">UI 2</option>
+                            <option value="U3">UI 3</option>
+                            <option value="U4">UI 4</option>
+                            <option value="U5">UI 5</option>
+                        </select>
+                        <button id="btnUI">Gửi</button>
+                    </div>
+                </div>
+                
+                <!-- 4. SPEED LIMIT WARNING -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 15px 0; color: #667eea;">4️⃣ Giới hạn cảnh báo tốc độ</h3>
+                    <div class="config-row">
+                        <label>Giới hạn (km/h):</label>
+                        <select id="selSpeed">
+                            <option value="O0">0 - Tắt cảnh báo</option>
+                            <option value="O1">+1km/h</option>
+                            <option value="O2">+2km/h</option>
+                            <option value="O3">+3km/h</option>
+                            <option value="O4">+4km/h</option>
+                            <option value="O5">+5km/h</option>
+                            <option value="O6">+6km/h</option>
+                            <option value="O7">+7km/h</option>
+                            <option value="O8">+8km/h</option>
+                            <option value="O9">+9km/h</option>
+                        </select>
+                        <button id="btnSpeed">Gửi</button>
+                    </div>
+                </div>
+                
+                <!-- 5. BOOT SOUND (V2 ONLY) -->
+                <div id="soundSection" style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: none;">
+                    <h3 style="margin: 0 0 15px 0; color: #856404;">5️⃣ Âm thanh khởi động (chỉ V2)</h3>
+                    <div class="config-row">
+                        <label>Âm thanh:</label>
+                        <select id="selSound">
+                            <option value="B0">Tắt</option>
+                            <option value="B1">Âm 1</option>
+                            <option value="B2">Âm 2</option>
+                            <option value="B3">Âm 3</option>
+                            <option value="B4">Âm 4</option>
+                            <option value="B5">Âm 5</option>
+                            <option value="B6">Âm 6</option>
+                            <option value="B7">Âm 7</option>
+                            <option value="B8">Âm 8</option>
+                        </select>
+                        <button id="btnSound">Gửi</button>
+                    </div>
+                </div>
+                
+                <!-- 6. CUSTOM COMMAND -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="margin: 0 0 15px 0; color: #667eea;">6️⃣ Lệnh tùy chỉnh</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="customCmd" placeholder="Nhập lệnh" style="flex: 1;">
+                        <button id="btnSendCmd" style="white-space: nowrap;">Gửi</button>
+                    </div>
+                </div>
+                
+                <!-- 7. LOG -->
+                <h3 style="margin: 20px 0 10px 0; color: #667eea;">📝 Log Serial</h3>
+                <textarea id="serialLog" readonly></textarea>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== FIRMWARE SELECTION ====================
+        let selectedManifest = 'manifest_v2.json';
+        let selectedHardware = 'V2';
+        
+        const cards = document.querySelectorAll('.firmware-card');
+        cards.forEach(card => {
+            card.addEventListener('click', () => {
+                cards.forEach(c => c.classList.remove('selected'));
+                card.classList.add('selected');
+                selectedManifest = card.dataset.manifest;
+                selectedHardware = card.dataset.hardware;
+                updateFlashButton();
+                updateSoundSection(); // Update sound section visibility
+            });
+        });
+        
+        function updateFlashButton() {
+            const container = document.getElementById('flash-button-container');
+            container.innerHTML = `
+                <esp-web-install-button 
+                    manifest="${selectedManifest}">
+                    <button slot="activate">🚀 INSTALL - CÀI ĐẶT FIRMWARE</button>
+                </esp-web-install-button>
+            `;
+            
+            // Listen for install events
+            const installButton = container.querySelector('esp-web-install-button');
+            
+            installButton.addEventListener('state-changed', (ev) => {
+                console.log('State changed:', ev.detail);
+            });
+            
+            installButton.addEventListener('install-finished', () => {
+                document.getElementById('success-message').style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById('success-message').style.display = 'none';
+                }, 10000);
+            });
+        }
+        
+        function updateSoundSection() {
+            const soundSection = document.getElementById('soundSection');
+            if (selectedHardware === 'V2') {
+                soundSection.style.display = 'block';
+            } else {
+                soundSection.style.display = 'none';
+            }
+        }
+        
+        // Initialize with default manifest
+        updateFlashButton();
+        updateSoundSection();
+        
+        // ==================== SERIAL CONFIG ====================
+        let port, reader, writer;
+        const encoder = new TextEncoder();
+        const decoder = new TextDecoder();
+        
+        function log(text, direction = 'info') {
+            const logArea = document.getElementById('serialLog');
+            const prefix = direction === 'in' ? '📥 ' : direction === 'out' ? '📤 ' : '  ';
+            logArea.value += prefix + text;
+            if (!text.endsWith('\n')) logArea.value += '\n';
+            logArea.scrollTop = logArea.scrollHeight;
+        }
+        
+        async function writeSerial(data) {
+            if (!writer) {
+                alert('⚠️ Chưa kết nối Serial!');
+                return;
+            }
+            try {
+                await writer.write(encoder.encode(data));
+                log(data.trim(), 'out');
+            } catch (err) {
+                log(`Lỗi ghi: ${err.message}`, 'err');
+            }
+        }
+        
+        document.getElementById('btnConnect').addEventListener('click', async () => {
+            const btn = document.getElementById('btnConnect');
+            const status = document.getElementById('status');
+            const controls = document.getElementById('config-controls');
+            
+            if (port) {
+                // Disconnect
+                try {
+                    if (reader) {
+                        await reader.cancel();
+                        reader.releaseLock();
+                        reader = null;
+                    }
+                    if (writer) {
+                        writer.releaseLock();
+                        writer = null;
+                    }
+                    await port.close();
+                    port = null;
+                } catch (e) {
+                    console.error('Disconnect error:', e);
+                }
+                btn.textContent = '🔌 Kết nối Serial';
+                status.textContent = '📡 Chưa kết nối';
+                controls.style.display = 'none';
+            } else {
+                // Connect
+                try {
+                    port = await navigator.serial.requestPort();
+                    await port.open({ baudRate: 115200 });
+                    writer = port.writable.getWriter();
+                    reader = port.readable.getReader();
+                    
+                    btn.textContent = '🔌 Ngắt kết nối';
+                    status.textContent = '✅ Đã kết nối';
+                    controls.style.display = 'block';
+                    document.getElementById('serialLog').value = '';
+                    document.getElementById('versionDisplay').textContent = 'Chưa kiểm tra';
+                    
+                    // Update sound section based on selected hardware
+                    updateSoundSection();
+                    
+                    // Read loop
+                    (async () => {
+                        try {
+                            while (true) {
+                                const { value, done } = await reader.read();
+                                if (done) break;
+                                const text = decoder.decode(value, { stream: true });
+                                log(text, 'in');
+                                
+                                // Check if response contains version info (e.g., V2.0.2)
+                                const versionMatch = text.match(/V\d+\.\d+\.\d+/);
+                                if (versionMatch) {
+                                    document.getElementById('versionDisplay').textContent = `✅ Phiên bản: ${versionMatch[0]}`;
+                                    document.getElementById('versionDisplay').style.borderColor = '#28a745';
+                                    document.getElementById('versionDisplay').style.color = '#28a745';
+                                }
+                            }
+                        } catch (err) {
+                            if (port) {
+                                log(`Lỗi đọc: ${err.message}`, 'err');
+                            }
+                        }
+                    })();
+                } catch (err) {
+                    status.textContent = `❌ Lỗi: ${err.message}`;
+                }
+            }
+        });
+        
+        // ==================== BUTTON EVENTS ====================
+        
+        // Version check button
+        document.getElementById('btnCheckVersion').addEventListener('click', () => {
+            document.getElementById('versionDisplay').textContent = '⏳ Đang kiểm tra...';
+            document.getElementById('versionDisplay').style.borderColor = '#667eea';
+            document.getElementById('versionDisplay').style.color = '#667eea';
+            writeSerial('VERSION\n');
+        });
+        
+        // Rotation button
+        document.getElementById('btnRotation').addEventListener('click', () => {
+            const value = document.getElementById('selRotation').value;
+            writeSerial(value + '\n');
+        });
+        
+        // UI button
+        document.getElementById('btnUI').addEventListener('click', () => {
+            const value = document.getElementById('selUI').value;
+            writeSerial(value + '\n');
+        });
+        
+        // Speed button
+        document.getElementById('btnSpeed').addEventListener('click', () => {
+            const value = document.getElementById('selSpeed').value;
+            writeSerial(value + '\n');
+        });
+        
+        // Sound button
+        document.getElementById('btnSound').addEventListener('click', () => {
+            const value = document.getElementById('selSound').value;
+            writeSerial(value + '\n');
+        });
+        
+        // Custom command button
+        document.getElementById('btnSendCmd').addEventListener('click', () => {
+            const input = document.getElementById('customCmd');
+            if (input.value) {
+                writeSerial(input.value + '\n');
+                input.value = '';
+            }
+        });
+        
+        console.log('✅ Mini HUD Flash Tool Ready!');
+    </script>
+</body>
+</html>
