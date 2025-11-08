@@ -1052,30 +1052,53 @@
         }
         
         async function disconnectSerial() {
-            if (port) {
-                try {
-                    if (reader) {
+            const btn = document.getElementById('btnConnect');
+            const status = document.getElementById('status');
+            const controls = document.getElementById('config-controls');
+            
+            try {
+                if (reader) {
+                    try {
                         await reader.cancel();
+                    } catch (e) {
+                        console.log('Reader cancel error (ignored):', e);
+                    }
+                    try {
                         reader.releaseLock();
-                        reader = null;
+                    } catch (e) {
+                        console.log('Reader release error (ignored):', e);
                     }
-                    if (writer) {
-                        writer.releaseLock();
-                        writer = null;
-                    }
-                    await port.close();
-                    port = null;
-                    
-                    const btn = document.getElementById('btnConnect');
-                    const status = document.getElementById('status');
-                    const controls = document.getElementById('config-controls');
-                    
-                    btn.textContent = '🔌 Kết nối Serial';
-                    status.textContent = '📡 Chưa kết nối';
-                    controls.style.display = 'none';
-                } catch (e) {
-                    console.error('Disconnect error:', e);
+                    reader = null;
                 }
+                
+                if (writer) {
+                    try {
+                        writer.releaseLock();
+                    } catch (e) {
+                        console.log('Writer release error (ignored):', e);
+                    }
+                    writer = null;
+                }
+                
+                if (port) {
+                    try {
+                        await port.close();
+                    } catch (e) {
+                        console.log('Port close error (ignored):', e);
+                    }
+                    port = null;
+                }
+            } catch (e) {
+                console.error('Disconnect error:', e);
+            } finally {
+                // Always reset UI state
+                port = null;
+                reader = null;
+                writer = null;
+                btn.textContent = '🔌 Kết nối Serial';
+                btn.disabled = false;
+                status.textContent = '📡 Chưa kết nối';
+                controls.style.display = 'none';
             }
         }
         
@@ -1090,12 +1113,16 @@
             } else {
                 // Connect
                 try {
+                    btn.disabled = true;
+                    status.textContent = '🔄 Đang kết nối...';
+                    
                     port = await navigator.serial.requestPort();
                     await port.open({ baudRate: 115200 });
                     writer = port.writable.getWriter();
                     reader = port.readable.getReader();
                     
                     btn.textContent = '🔌 Ngắt kết nối';
+                    btn.disabled = false;
                     status.textContent = '✅ Đã kết nối';
                     controls.style.display = 'block';
                     document.getElementById('serialLog').value = '';
@@ -1123,12 +1150,27 @@
                             }
                         } catch (err) {
                             if (port) {
-                                log(`Lỗi đọc: ${err.message}`, 'err');
+                                log(`⚠️ Lỗi đọc: ${err.message}`, 'err');
+                                status.textContent = `⚠️ Mất kết nối: ${err.message}`;
+                                // Auto disconnect on read error
+                                await disconnectSerial();
                             }
                         }
                     })();
                 } catch (err) {
-                    status.textContent = `❌ Lỗi: ${err.message}`;
+                    console.error('Connect error:', err);
+                    status.textContent = `❌ Lỗi kết nối: ${err.message}`;
+                    // Reset state on connection error
+                    await disconnectSerial();
+                    
+                    // Show user-friendly error message
+                    if (err.name === 'NotFoundError') {
+                        alert('❌ Không tìm thấy cổng COM. Vui lòng:\n• Kiểm tra cáp USB\n• Chọn đúng cổng trong hộp thoại\n• Thử cổng USB khác');
+                    } else if (err.name === 'InvalidStateError') {
+                        alert('❌ Cổng COM đang được sử dụng bởi ứng dụng khác.\n• Đóng các ứng dụng Serial khác\n• Rút cáp USB, đợi 5 giây, cắm lại\n• Thử lại');
+                    } else {
+                        alert(`❌ Lỗi kết nối: ${err.message}\n\nVui lòng thử:\n• Rút cáp USB, đợi 5 giây, cắm lại\n• Khởi động lại trình duyệt\n• Kiểm tra driver CH340/CP2102/CH9102`);
+                    }
                 }
             }
         });
