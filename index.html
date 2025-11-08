@@ -368,6 +368,90 @@
                 text-align: left;
             }
         }
+        
+        /* FOOTER STYLES */
+        .footer {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            text-align: center;
+        }
+        
+        .footer-brand {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .footer-tagline {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .footer-divider {
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #667eea, #764ba2, transparent);
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        
+        .footer-info {
+            color: #888;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        .footer-info a {
+            color: #667eea;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        
+        .footer-info a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+        
+        .footer-copyright {
+            color: #aaa;
+            font-size: 12px;
+            margin-top: 15px;
+        }
+        
+        .footer-social {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .footer-social a {
+            color: #667eea;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            padding: 8px 20px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            background: transparent;
+        }
+        
+        .footer-social a:hover {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+        }
     </style>
 </head>
 <body>
@@ -929,6 +1013,19 @@
                 </div>
             </div>
         </div>
+        
+        <!-- FOOTER -->
+        <div class="footer">
+            <div class="footer-brand">TechZone Automotive</div>
+            <div class="footer-tagline">Car Retrofit & Accessories</div>
+            
+            <div class="footer-divider"></div>
+            
+            <div class="footer-social">
+                <a href="https://www.facebook.com/49techzone" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://tiktok.com/@techzone_automotive" target="_blank" rel="noopener">TikTok</a>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -981,27 +1078,26 @@
             container.innerHTML = `
                 <esp-web-install-button 
                     manifest="${selectedManifest}">
-                    <button slot="activate">🚀 INSTALL - CÀI ĐẶT FIRMWARE</button>
+                    <button slot="activate" id="installBtn">🚀 INSTALL - CÀI ĐẶT FIRMWARE</button>
                 </esp-web-install-button>
             `;
             
             // Listen for install events
             const installButton = container.querySelector('esp-web-install-button');
+            const activateButton = container.querySelector('#installBtn');
+            
+            // INTERCEPT CLICK ON INSTALL BUTTON - disconnect BEFORE popup
+            activateButton.addEventListener('click', async (e) => {
+                if (port) {
+                    console.log('Install button clicked - Auto-disconnecting Serial...');
+                    // Disconnect serial synchronously before the flash tool popup appears
+                    await disconnectSerial();
+                    alert('ℹ️ Đã tự động ngắt kết nối Serial để flash firmware.\n\nBây giờ bạn có thể chọn cổng COM trong popup.\n\nSau khi flash xong, bạn có thể kết nối lại Serial để cấu hình.');
+                }
+            }, true); // Use capture phase to run before esp-web-tools
             
             installButton.addEventListener('state-changed', (ev) => {
                 console.log('State changed:', ev.detail);
-            });
-            
-            // AUTO DISCONNECT SERIAL WHEN STARTING FLASH
-            installButton.addEventListener('state-changed', async (ev) => {
-                if (ev.detail === 'LOGS_ACTIVE' || ev.detail === 'PREPARING') {
-                    // Flash is about to start - disconnect serial if connected
-                    if (port) {
-                        console.log('Auto-disconnecting Serial before flash...');
-                        await disconnectSerial();
-                        alert('ℹ️ Đã tự động ngắt kết nối Serial để chuẩn bị flash firmware. Sau khi flash xong, bạn có thể kết nối lại Serial để cấu hình.');
-                    }
-                }
             });
             
             installButton.addEventListener('install-finished', () => {
