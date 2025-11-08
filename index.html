@@ -232,6 +232,73 @@
             font-size: 24px;
             margin-right: 15px;
         }
+        
+        .guide-box {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .guide-step {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .guide-step h3 {
+            color: #667eea;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .guide-step p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .guide-step ul {
+            margin-left: 20px;
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        .guide-step ul li {
+            margin-bottom: 8px;
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .tip-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffa726;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .tip-box::before {
+            content: '💡 ';
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -246,12 +313,77 @@
             </div>
         </div>
 
+        <!-- HƯỚNG DẪN SỬ DỤNG -->
+        <div class="card">
+            <h2>📖 Hướng dẫn sử dụng chi tiết</h2>
+            
+            <div class="guide-box">
+                <div class="guide-step">
+                    <h3><span class="step-number">1</span> Chuẩn bị</h3>
+                    <p><strong>Những gì bạn cần:</strong></p>
+                    <ul>
+                        <li>Thiết bị HUD Mini V1 hoặc V2</li>
+                        <li>Cáp USB Type-C để kết nối HUD với máy tính</li>
+                        <li>Máy tính với trình duyệt Chrome hoặc Edge</li>
+                        <li>Kết nối Internet ổn định</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>Mẹo:</strong> Đảm bảo cáp USB hoạt động tốt và hỗ trợ truyền dữ liệu (không chỉ sạc)
+                    </div>
+                </div>
+                
+                <div class="guide-step">
+                    <h3><span class="step-number">2</span> Cập nhật Firmware</h3>
+                    <p><strong>Làm theo các bước sau:</strong></p>
+                    <ul>
+                        <li><strong>Bước 1:</strong> Kết nối HUD Mini với máy tính bằng cáp USB</li>
+                        <li><strong>Bước 2:</strong> Chọn đúng phiên bản thiết bị của bạn (V1 hoặc V2) ở phần bên dưới</li>
+                        <li><strong>Bước 3:</strong> Nhấn nút <strong>"INSTALL - CÀI ĐẶT FIRMWARE"</strong></li>
+                        <li><strong>Bước 4:</strong> Trong cửa sổ popup, chọn cổng COM của thiết bị và nhấn <strong>"Kết nối"</strong></li>
+                        <li><strong>Bước 5:</strong> Nhấn <strong>"INSTALL"</strong> và chờ quá trình cài đặt hoàn tất (khoảng 1-2 phút)</li>
+                        <li><strong>Bước 6:</strong> Khi thấy thông báo "Installation complete!", thiết bị sẽ tự động khởi động lại</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>Lưu ý:</strong> Không ngắt kết nối USB trong khi đang cập nhật firmware!
+                    </div>
+                </div>
+                
+                <div class="guide-step">
+                    <h3><span class="step-number">3</span> Cấu hình thiết bị</h3>
+                    <p><strong>Sau khi cập nhật firmware thành công, bạn có thể tùy chỉnh:</strong></p>
+                    <ul>
+                        <li><strong>Xoay màn hình:</strong> Chọn hướng hiển thị phù hợp với cách lắp đặt (1-8)</li>
+                        <li><strong>Giao diện:</strong> Chọn kiểu hiển thị ưa thích (UI 1 đến UI 5)</li>
+                        <li><strong>Cảnh báo tốc độ:</strong> Thiết lập ngưỡng cảnh báo vượt tốc độ (+0 đến +9 km/h)</li>
+                        <li><strong>Âm thanh khởi động (chỉ V2):</strong> Chọn âm thanh khi bật thiết bị</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>Hướng dẫn:</strong> Nhấn nút "Kết nối Serial" ở phần cấu hình bên dưới, sau đó chọn từng mục và nhấn <strong>Gửi</strong> để tùy chỉnh
+                    </div>
+                </div>
+                
+                <div class="guide-step">
+                    <h3><span class="step-number">4</span> Khắc phục sự cố</h3>
+                    <p><strong>Nếu gặp vấn đề:</strong></p>
+                    <ul>
+                        <li><strong>Không thấy cổng COM:</strong> Kiểm tra lại cáp USB và thử cổng USB khác trên máy tính</li>
+                        <li><strong>Lỗi kết nối:</strong> Đóng các ứng dụng khác đang sử dụng cổng COM</li>
+                        <li><strong>Thiết bị không phản hồi:</strong> Rút cáp USB, đợi 5 giây rồi cắm lại</li>
+                        <li><strong>Cập nhật thất bại:</strong> Thử lại từ đầu và đảm bảo không ngắt kết nối trong quá trình cập nhật</li>
+                    </ul>
+                    <div class="tip-box">
+                        <strong>Quan trọng:</strong> Nếu vẫn gặp lỗi, hãy liên hệ với bộ phận hỗ trợ kỹ thuật
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- CARD 1: FLASH FIRMWARE -->
         <div class="card">
             <h2>📦 Cập nhật Firmware</h2>
             
             <div class="info-box">
-                <strong>Hướng dẫn:</strong> Chọn phiên bản thiết bị của bạn, sau đó nhấn nút "INSTALL" để bắt đầu.
+                <strong>Hướng dẫn nhanh:</strong> Chọn phiên bản thiết bị của bạn, sau đó nhấn nút "INSTALL" để bắt đầu.
             </div>
             
             <h3 style="margin: 20px 0 15px 0; color: #667eea;">Chọn phiên bản thiết bị:</h3>
@@ -271,7 +403,7 @@
             
             <div class="success-box" style="display: none;" id="success-message">
                 <div>
-                    <strong>Hoàn thành!</strong> Thiết bị đã được cập nhật firmware thành công.
+                    <strong>Hoàn thành!</strong> Thiết bị đã được cập nhật firmware thành công. Bạn có thể tiếp tục cấu hình ở phần bên dưới.
                 </div>
             </div>
         </div>
@@ -279,6 +411,10 @@
         <!-- CARD 2: SERIAL CONFIG -->
         <div class="card">
             <h2>⚙️ Cấu hình qua Serial</h2>
+            
+            <div class="info-box">
+                <strong>Chú ý:</strong> Trước khi cấu hình, đảm bảo bạn đã cập nhật firmware thành công ở phần trên. Sau đó nhấn nút "Kết nối Serial" để bắt đầu.
+            </div>
             
             <button id="btnConnect">🔌 Kết nối Serial</button>
             <div id="status" class="status-box">📡 Chưa kết nối</div>
@@ -288,6 +424,7 @@
                 <!-- 1. VERSION CHECK -->
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <h3 style="margin: 0 0 15px 0; color: #667eea;">1️⃣ Kiểm tra phiên bản</h3>
+                    <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Nhấn nút bên dưới để kiểm tra phiên bản firmware hiện tại của thiết bị</p>
                     <button id="btnCheckVersion" style="margin-bottom: 10px;">📋 Gửi lệnh VERSION</button>
                     <div id="versionDisplay" style="
                         background: white;
@@ -304,6 +441,7 @@
                 <!-- 2. SCREEN ROTATION -->
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <h3 style="margin: 0 0 15px 0; color: #667eea;">2️⃣ Xoay màn hình</h3>
+                    <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Chọn hướng hiển thị phù hợp với cách bạn lắp đặt HUD (thử từng hướng để tìm góc nhìn tốt nhất)</p>
                     <div class="config-row">
                         <label>Chọn hướng:</label>
                         <select id="selRotation">
@@ -323,6 +461,7 @@
                 <!-- 3. UI SELECTION -->
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <h3 style="margin: 0 0 15px 0; color: #667eea;">3️⃣ Chọn giao diện</h3>
+                    <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Chọn kiểu giao diện hiển thị thông tin theo sở thích của bạn</p>
                     <div class="config-row">
                         <label>Giao diện:</label>
                         <select id="selUI">
@@ -339,10 +478,11 @@
                 <!-- 4. SPEED LIMIT WARNING -->
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <h3 style="margin: 0 0 15px 0; color: #667eea;">4️⃣ Giới hạn cảnh báo tốc độ</h3>
+                    <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Thiết lập ngưỡng cảnh báo khi vượt tốc độ cho phép (ví dụ: +5km/h có nghĩa là cảnh báo khi vượt quá 5km/h so với giới hạn)</p>
                     <div class="config-row">
                         <label>Giới hạn (km/h):</label>
                         <select id="selSpeed">
-                            <option value="O0">+0km/h</option>
+                            <option value="O0">+0km/h (Chính xác)</option>
                             <option value="O1">+1km/h</option>
                             <option value="O2">+2km/h</option>
                             <option value="O3">+3km/h</option>
@@ -360,10 +500,11 @@
                 <!-- 5. BOOT SOUND (V2 ONLY) -->
                 <div id="soundSection" style="background: #fff3cd; padding: 20px; border-radius: 8px; margin-bottom: 20px; display: none;">
                     <h3 style="margin: 0 0 15px 0; color: #856404;">5️⃣ Âm thanh khởi động (chỉ V2)</h3>
+                    <p style="color: #856404; margin-bottom: 10px; font-size: 14px;">Chọn âm thanh phát ra khi bật thiết bị (chỉ áp dụng cho HUD Mini V2)</p>
                     <div class="config-row">
                         <label>Âm thanh:</label>
                         <select id="selSound">
-                            <option value="B0">Tắt</option>
+                            <option value="B0">Tắt âm thanh</option>
                             <option value="B1">Âm 1</option>
                             <option value="B2">Âm 2</option>
                             <option value="B3">Âm 3</option>
@@ -380,15 +521,42 @@
                 <!-- 6. CUSTOM COMMAND -->
                 <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <h3 style="margin: 0 0 15px 0; color: #667eea;">6️⃣ Lệnh tùy chỉnh</h3>
+                    <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Dành cho người dùng nâng cao - Gửi lệnh đặc biệt đến thiết bị</p>
                     <div style="display: flex; gap: 10px;">
-                        <input type="text" id="customCmd" placeholder="Nhập lệnh" style="flex: 1;">
+                        <input type="text" id="customCmd" placeholder="Nhập lệnh (ví dụ: VERSION,...)" style="flex: 1;">
                         <button id="btnSendCmd" style="white-space: nowrap;">Gửi</button>
                     </div>
                 </div>
                 
                 <!-- 7. LOG -->
                 <h3 style="margin: 20px 0 10px 0; color: #667eea;">📝 Log Serial</h3>
+                <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Hiển thị các lệnh đã gửi và phản hồi từ thiết bị (dùng để kiểm tra và debug)</p>
                 <textarea id="serialLog" readonly></textarea>
+            </div>
+        </div>
+        
+        <!-- FAQ / TIPS -->
+        <div class="card">
+            <h2>❓ Câu hỏi thường gặp</h2>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 8px;">🔹 Làm sao biết thiết bị của tôi là V1 hay V2?</h3>
+                <p style="color: #555; line-height: 1.6;">HUD Hình vuông là V1, Hình tròn là V2.</p>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 8px;">🔹 Tại sao không thấy cổng COM khi cài firmware?</h3>
+                <p style="color: #555; line-height: 1.6;">Đảm bảo đã cắm cáp USB đúng cách và cáp hỗ trợ truyền dữ liệu. Thử đổi sang cổng USB khác trên máy tính. Một số máy cần cài driver CH340/CP2102/CH9102.</p>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 8px;">🔹 Có mất dữ liệu khi cập nhật firmware không?</h3>
+                <p style="color: #555; line-height: 1.6;">KHÔNG. Các cài đặt cá nhân sẽ giữ nguyên sau khi cập nhật.".</p>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <h3 style="color: #667eea; margin-bottom: 8px;">🔹 Cần cập nhật firmware bao lâu một lần?</h3>
+                <p style="color: #555; line-height: 1.6;">Chỉ cần cập nhật khi có phiên bản mới với tính năng cải tiến hoặc sửa lỗi. Không bắt buộc phải cập nhật thường xuyên.</p>
             </div>
         </div>
     </div>
