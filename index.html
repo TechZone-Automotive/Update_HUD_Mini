@@ -4,7 +4,89 @@
     <meta charset="UTF-8">
     <meta name="google-site-verification" content="FW-lfIucptn9hb-lu_PTZCsTdNHKy3ucKJd7jgi0wIE" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cập nhật và Cấu hình HUD Mini</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>Cập nhật Firmware HUD Mini V1 V2 | Flash ESP32 Online - TechZone Automotive</title>
+    <meta name="description" content="Công cụ cập nhật firmware HUD Mini V1 V2 trực tuyến. Flash ESP32, cấu hình màn hình, UI, cảnh báo tốc độ cho thiết bị HUD ô tô. Không cần cài đặt phần mềm.">
+    <meta name="keywords" content="HUD Mini, cập nhật firmware HUD, flash HUD Mini, ESP32 flash online, HUD V1, HUD V2, cấu hình HUD, firmware HUD ô tô, TechZone Automotive, Mini HUD Vietnam, HUD xe hơi, heads up display, flash ESP32 online, cập nhật HUD không dây">
+    <meta name="author" content="TechZone Automotive">
+    <meta name="robots" content="index, follow">
+    <meta name="language" content="Vietnamese">
+    <meta name="revisit-after" content="7 days">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Cập nhật Firmware HUD Mini V1 V2 | Flash ESP32 Online">
+    <meta property="og:description" content="Công cụ cập nhật firmware HUD Mini trực tuyến. Flash ESP32, cấu hình màn hình, UI, cảnh báo tốc độ. Không cần cài đặt phần mềm.">
+    <meta property="og:image" content="https://yourdomain.com/images/hud-mini-preview.jpg">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:site_name" content="TechZone Automotive">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://yourdomain.com/">
+    <meta name="twitter:title" content="Cập nhật Firmware HUD Mini V1 V2 | Flash ESP32 Online">
+    <meta name="twitter:description" content="Công cụ cập nhật firmware HUD Mini trực tuyến. Flash ESP32, cấu hình màn hình, UI, cảnh báo tốc độ.">
+    <meta name="twitter:image" content="https://yourdomain.com/images/hud-mini-preview.jpg">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://yourdomain.com/">
+    
+    <!-- Structured Data / JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HUD Mini Firmware Updater",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Web Browser (Chrome, Edge)",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "VND"
+      },
+      "description": "Công cụ cập nhật firmware trực tuyến cho HUD Mini V1 và V2. Hỗ trợ flash ESP32, cấu hình màn hình, giao diện và các tính năng khác.",
+      "provider": {
+        "@type": "Organization",
+        "name": "TechZone Automotive",
+        "url": "https://www.facebook.com/49techzone"
+      }
+    }
+    </script>
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Làm sao biết thiết bị của tôi là V1 hay V2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HUD Mini V1 có thiết kế hình vuông. HUD Mini V2 có thiết kế hình tròn với mặt kính tràn viền."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Tại sao không thấy cổng COM khi cài firmware?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Có thể do: Cáp USB chỉ hỗ trợ sạc không truyền dữ liệu, chưa cài driver USB to Serial (CH340/CP2102/CH9102), cổng USB bị lỗi, hoặc thiết bị chưa được nhận diện."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Có mất dữ liệu khi cập nhật firmware không?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "KHÔNG. Các cài đặt cá nhân như xoay màn hình, UI, cảnh báo tốc độ, âm thanh sẽ được giữ nguyên sau khi cập nhật firmware."
+          }
+        }
+      ]
+    }
+    </script>
     
     <!-- Import esp-web-tools -->
     <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
@@ -495,7 +577,7 @@
                                     <li>✅ Kết nối Internet ổn định</li>
                                 </ul>
                                 <div class="tip-box">
-                                    <strong>Quan trọng:</strong> Đảm bảo cáp USB hoạt động tốt và hỗ trợ truyền dữ liệu (không chỉ sạc). Cáp sạc nhanh thường không hoạt động tốt cho việc truyền firmware.
+                                    <strong>Quan trọng:</strong> Đảm bảo cáp USB hoạt động tốt và hỗ trợ truyền dữ liệu (không chỉ sạc).
                                 </div>
                             </div>
                         </div>
@@ -522,9 +604,8 @@
                                     <li>Bạn sẽ thấy thiết bị với tên như:
                                         <ul>
                                             <li><strong>USB-SERIAL CH340 (COM3)</strong></li>
-                                            <li><strong>Silicon Labs CP210x (COM4)</strong></li>
                                             <li><strong>USB Serial Device (COM5)</strong></li>
-                                            <li><strong>WCH USB-SERIAL CH9102 (COM6)</strong></li>
+                                            <li><strong>USB-Enhanced SERIAL CH9102 (COM6)</strong></li>
                                         </ul>
                                     </li>
                                     <li>Số <strong>COM</strong> trong ngoặc là cổng của thiết bị (ví dụ: COM3, COM4,...)</li>
@@ -643,7 +724,7 @@
                                 <ul>
                                     <li>Kiểm tra lại cáp USB (thử cáp khác)</li>
                                     <li>Thử cổng USB khác trên máy tính</li>
-                                    <li>Cài driver CH340/CP2102/CH9102 (xem Bước 2)</li>
+                                    <li>Cài driver CH340/CH9102 (xem Bước 2)</li>
                                     <li>Khởi động lại máy tính</li>
                                 </ul>
                                 
@@ -730,173 +811,111 @@
             
             <div id="config-controls" style="display: none;">
                 
-                <div class="accordion">
-                    <!-- 1. VERSION CHECK -->
-                    <div class="accordion-item active">
-                        <div class="accordion-header">
-                            <div class="accordion-title">
-                                <span>1️⃣</span>
-                                <span>Kiểm tra phiên bản Firmware</span>
-                            </div>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #666; margin-bottom: 15px;">Kiểm tra phiên bản firmware hiện tại của thiết bị để đảm bảo đã cập nhật thành công.</p>
-                                <button id="btnCheckVersion">📋 Gửi lệnh VERSION</button>
-                                <div id="versionDisplay" style="
-                                    background: white;
-                                    border: 2px solid #667eea;
-                                    padding: 15px;
-                                    border-radius: 8px;
-                                    text-align: center;
-                                    font-size: 18px;
-                                    font-weight: bold;
-                                    color: #667eea;
-                                    margin-top: 15px;
-                                ">Chưa kiểm tra</div>
-                            </div>
-                        </div>
+                <!-- 1. VERSION CHECK -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin: 0 0 10px 0;">1️⃣ Kiểm tra phiên bản Firmware</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Kiểm tra phiên bản firmware hiện tại của thiết bị để đảm bảo đã cập nhật thành công.</p>
+                    <button id="btnCheckVersion">📋 Gửi lệnh VERSION</button>
+                    <div id="versionDisplay" style="
+                        background: white;
+                        border: 2px solid #667eea;
+                        padding: 15px;
+                        border-radius: 8px;
+                        text-align: center;
+                        font-size: 18px;
+                        font-weight: bold;
+                        color: #667eea;
+                        margin-top: 15px;
+                    ">Chưa kiểm tra</div>
+                </div>
+                
+                <!-- 2. SCREEN ROTATION -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin: 0 0 10px 0;">2️⃣ Xoay màn hình</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Chọn hướng hiển thị phù hợp với cách bạn lắp đặt HUD. Thử từng hướng để tìm góc nhìn tốt nhất.</p>
+                    <div class="config-row">
+                        <label>Chọn hướng:</label>
+                        <select id="selRotation">
+                            <option value="1">Hướng 1</option>
+                            <option value="2">Hướng 2</option>
+                            <option value="3">Hướng 3</option>
+                            <option value="4">Hướng 4</option>
+                            <option value="5">Hướng 5</option>
+                            <option value="6">Hướng 6</option>
+                            <option value="7">Hướng 7</option>
+                            <option value="8">Hướng 8</option>
+                        </select>
+                        <button id="btnRotation">Gửi</button>
                     </div>
-                    
-                    <!-- 2. SCREEN ROTATION -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="accordion-title">
-                                <span>2️⃣</span>
-                                <span>Xoay màn hình</span>
-                            </div>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #666; margin-bottom: 15px;">Chọn hướng hiển thị phù hợp với cách bạn lắp đặt HUD. Thử từng hướng để tìm góc nhìn tốt nhất.</p>
-                                <div class="config-row">
-                                    <label>Chọn hướng:</label>
-                                    <select id="selRotation">
-                                        <option value="1">Hướng 1</option>
-                                        <option value="2">Hướng 2</option>
-                                        <option value="3">Hướng 3</option>
-                                        <option value="4">Hướng 4</option>
-                                        <option value="5">Hướng 5</option>
-                                        <option value="6">Hướng 6</option>
-                                        <option value="7">Hướng 7</option>
-                                        <option value="8">Hướng 8</option>
-                                    </select>
-                                    <button id="btnRotation">Gửi</button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                
+                <!-- 3. UI SELECTION -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin: 0 0 10px 0;">3️⃣ Chọn giao diện UI</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Chọn kiểu giao diện hiển thị thông tin theo sở thích của bạn.</p>
+                    <div class="config-row">
+                        <label>Giao diện:</label>
+                        <select id="selUI">
+                            <option value="U1">UI 1</option>
+                            <option value="U2">UI 2</option>
+                            <option value="U3">UI 3</option>
+                            <option value="U4">UI 4</option>
+                            <option value="U5">UI 5</option>
+                        </select>
+                        <button id="btnUI">Gửi</button>
                     </div>
-                    
-                    <!-- 3. UI SELECTION -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="accordion-title">
-                                <span>3️⃣</span>
-                                <span>Chọn giao diện UI</span>
-                            </div>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #666; margin-bottom: 15px;">Chọn kiểu giao diện hiển thị thông tin theo sở thích của bạn.</p>
-                                <div class="config-row">
-                                    <label>Giao diện:</label>
-                                    <select id="selUI">
-                                        <option value="U1">UI 1</option>
-                                        <option value="U2">UI 2</option>
-                                        <option value="U3">UI 3</option>
-                                        <option value="U4">UI 4</option>
-                                        <option value="U5">UI 5</option>
-                                    </select>
-                                    <button id="btnUI">Gửi</button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                
+                <!-- 4. SPEED LIMIT WARNING -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin: 0 0 10px 0;">4️⃣ Cảnh báo vượt tốc độ</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Thiết lập ngưỡng cảnh báo khi vượt tốc độ cho phép. Ví dụ: +5km/h = cảnh báo khi vượt quá 5km/h so với giới hạn.</p>
+                    <div class="config-row">
+                        <label>Giới hạn:</label>
+                        <select id="selSpeed">
+                            <option value="O0">+0km/h (Chính xác)</option>
+                            <option value="O1">+1km/h</option>
+                            <option value="O2">+2km/h</option>
+                            <option value="O3">+3km/h</option>
+                            <option value="O4">+4km/h</option>
+                            <option value="O5">+5km/h</option>
+                            <option value="O6">+6km/h</option>
+                            <option value="O7">+7km/h</option>
+                            <option value="O8">+8km/h</option>
+                            <option value="O9">+9km/h</option>
+                        </select>
+                        <button id="btnSpeed">Gửi</button>
                     </div>
-                    
-                    <!-- 4. SPEED LIMIT WARNING -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="accordion-title">
-                                <span>4️⃣</span>
-                                <span>Cảnh báo vượt tốc độ</span>
-                            </div>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #666; margin-bottom: 15px;">Thiết lập ngưỡng cảnh báo khi vượt tốc độ cho phép. Ví dụ: +5km/h = cảnh báo khi vượt quá 5km/h so với giới hạn.</p>
-                                <div class="config-row">
-                                    <label>Giới hạn:</label>
-                                    <select id="selSpeed">
-                                        <option value="O0">+0km/h (Chính xác)</option>
-                                        <option value="O1">+1km/h</option>
-                                        <option value="O2">+2km/h</option>
-                                        <option value="O3">+3km/h</option>
-                                        <option value="O4">+4km/h</option>
-                                        <option value="O5">+5km/h</option>
-                                        <option value="O6">+6km/h</option>
-                                        <option value="O7">+7km/h</option>
-                                        <option value="O8">+8km/h</option>
-                                        <option value="O9">+9km/h</option>
-                                    </select>
-                                    <button id="btnSpeed">Gửi</button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                
+                <!-- 5. BOOT SOUND (V2 ONLY) -->
+                <div id="soundSection" style="background: #fff9e6; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffa726; display: none;">
+                    <h3 style="color: #856404; margin: 0 0 10px 0;">5️⃣ Âm thanh khởi động (chỉ V2)</h3>
+                    <p style="color: #856404; margin-bottom: 15px;">Chọn âm thanh phát ra khi bật thiết bị. Tính năng này chỉ áp dụng cho HUD Mini V2.</p>
+                    <div class="config-row">
+                        <label>Âm thanh:</label>
+                        <select id="selSound">
+                            <option value="B0">Tắt âm thanh</option>
+                            <option value="B1">Âm 1</option>
+                            <option value="B2">Âm 2</option>
+                            <option value="B3">Âm 3</option>
+                            <option value="B4">Âm 4</option>
+                            <option value="B5">Âm 5</option>
+                            <option value="B6">Âm 6</option>
+                            <option value="B7">Âm 7</option>
+                            <option value="B8">Âm 8</option>
+                        </select>
+                        <button id="btnSound">Gửi</button>
                     </div>
-                    
-                    <!-- 5. BOOT SOUND (V2 ONLY) -->
-                    <div class="accordion-item" id="soundSection" style="display: none;">
-                        <div class="accordion-header" style="background: linear-gradient(135deg, #fff9e6, #ffecb3);">
-                            <div class="accordion-title" style="color: #856404;">
-                                <span>5️⃣</span>
-                                <span>Âm thanh khởi động (chỉ V2)</span>
-                            </div>
-                            <span class="accordion-icon" style="color: #856404;">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #856404; margin-bottom: 15px;">Chọn âm thanh phát ra khi bật thiết bị. Tính năng này chỉ áp dụng cho HUD Mini V2.</p>
-                                <div class="config-row">
-                                    <label>Âm thanh:</label>
-                                    <select id="selSound">
-                                        <option value="B0">Tắt âm thanh</option>
-                                        <option value="B1">Âm 1</option>
-                                        <option value="B2">Âm 2</option>
-                                        <option value="B3">Âm 3</option>
-                                        <option value="B4">Âm 4</option>
-                                        <option value="B5">Âm 5</option>
-                                        <option value="B6">Âm 6</option>
-                                        <option value="B7">Âm 7</option>
-                                        <option value="B8">Âm 8</option>
-                                    </select>
-                                    <button id="btnSound">Gửi</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- 6. CUSTOM COMMAND -->
-                    <div class="accordion-item">
-                        <div class="accordion-header">
-                            <div class="accordion-title">
-                                <span>6️⃣</span>
-                                <span>Lệnh tùy chỉnh (Nâng cao)</span>
-                            </div>
-                            <span class="accordion-icon">▼</span>
-                        </div>
-                        <div class="accordion-content">
-                            <div class="accordion-body">
-                                <p style="color: #666; margin-bottom: 15px;">Dành cho người dùng nâng cao - Gửi lệnh đặc biệt đến thiết bị.</p>
-                                <div style="display: flex; gap: 10px;">
-                                    <input type="text" id="customCmd" placeholder="Nhập lệnh (ví dụ: VERSION,...)" style="flex: 1;">
-                                    <button id="btnSendCmd" style="white-space: nowrap;">Gửi</button>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                
+                <!-- 6. CUSTOM COMMAND -->
+                <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #667eea;">
+                    <h3 style="color: #667eea; margin: 0 0 10px 0;">6️⃣ Lệnh tùy chỉnh (Nâng cao)</h3>
+                    <p style="color: #666; margin-bottom: 15px;">Dành cho người dùng nâng cao - Gửi lệnh đặc biệt đến thiết bị.</p>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="customCmd" placeholder="Nhập lệnh (ví dụ: VERSION,...)" style="flex: 1;">
+                        <button id="btnSendCmd" style="white-space: nowrap;">Gửi</button>
                     </div>
                 </div>
                 
@@ -1013,6 +1032,54 @@
             </div>
         </div>
         
+        <!-- SEO Content Section -->
+        <div class="card">
+            <h2>🔍 Thông tin về HUD Mini Firmware Update Tool</h2>
+            
+            <div style="color: #555; line-height: 1.8;">
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Công cụ cập nhật firmware HUD Mini chuyên nghiệp</h3>
+                <p style="margin-bottom: 15px;">
+                    <strong>HUD Mini Firmware Update Tool</strong> là công cụ trực tuyến giúp bạn dễ dàng cập nhật firmware cho thiết bị HUD Mini V1 (hình vuông) và HUD Mini V2 (hình tròn). Công cụ hỗ trợ Cập nhật và Cấu hình tùy chỉnh trực tiếp từ trình duyệt web Chrome hoặc Edge, không cần cài đặt phần mềm phức tạp.
+                </p>
+                
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Tính năng nổi bật</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Flash firmware ESP32 online:</strong> Cập nhật firmware mới nhất cho HUD Mini ngay trên trình duyệt</li>
+                    <li><strong>Cấu hình Serial trực tiếp:</strong> Điều chỉnh xoay màn hình, giao diện UI, cảnh báo tốc độ</li>
+                    <li><strong>Hỗ trợ đa phiên bản:</strong> Tương thích với HUD Mini V1 và V2</li>
+                    <li><strong>Giao diện thân thiện:</strong> Hướng dẫn chi tiết từng bước cho người dùng mới</li>
+                    <li><strong>Không cần cài đặt:</strong> Hoạt động 100% trên web browser</li>
+                </ul>
+                
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Lưu ý:</h3>
+                <p style="margin-bottom: 15px;">
+                    <strong>HUD Mini</strong> là sản phẩm được thiết kế và chế tác theo nhu cầu cá nhân. Đây là sản phẩm độc lập, không phải hàng chính hãng, không thuộc sở hữu, liên kết hay được bảo trợ bởi bất kỳ thương hiệu nào. Mọi tên gọi, nhãn hiệu nếu được đề cập chỉ mang tính mô tả.
+                </p>
+                
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Yêu cầu hệ thống</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Trình duyệt: Google Chrome hoặc Microsoft Edge (khuyến nghị phiên bản mới nhất)</li>
+                    <li>Kết nối: Cáp USB Type-C hỗ trợ truyền dữ liệu</li>
+                    <li>Driver: CH340, CP2102 hoặc CH9102 USB to Serial</li>
+                    <li>Hệ điều hành: Windows 10/11, macOS, hoặc Linux</li>
+                </ul>
+                
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Hướng dẫn cập nhật firmware HUD Mini</h3>
+                <p style="margin-bottom: 15px;">
+                    Quy trình cập nhật firmware cho HUD Mini rất đơn giản: (1) Kết nối thiết bị HUD với máy tính qua USB, (2) Chọn đúng phiên bản V1 hoặc V2, (3) Nhấn nút Install và chọn cổng COM, (4) Đợi quá trình flash hoàn tất. Sau khi cập nhật thành công, bạn có thể cấu hình các tùy chọn như xoay màn hình, chọn giao diện UI, thiết lập cảnh báo tốc độ và âm thanh khởi động (chỉ V2).
+                </p>
+                
+                <h3 style="color: #667eea; margin: 20px 0 10px 0;">Hỗ trợ và bảo hành</h3>
+                <p style="margin-bottom: 15px;">
+                    Mọi thắc mắc về sản phẩm HUD Mini hoặc vấn đề kỹ thuật trong quá trình cập nhật firmware, vui lòng liên hệ <strong>TechZone Automotive</strong> qua Facebook hoặc TikTok. Chúng tôi cam kết hỗ trợ khách hàng để đảm bảo trải nghiệm sử dụng sản phẩm tốt nhất.
+                </p>
+                
+                <div style="background: #f0f7ff; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #2196F3;">
+                    <strong>🏷️ Tags:</strong> HUD Mini V1, HUD Mini V2, cập nhật firmware HUD Mini, lỗi HUD Mini, sửa lỗi HUD Mini, cập nhật HUD Mini, màn hình mini trên ô tô, heads up display xe hơi, TechZone Automotive, Mini HUD V1 V2, cấu hình HUD, phụ kiện ô tô
+                </div>
+            </div>
+        </div>
+        
         <!-- FOOTER -->
         <div class="footer">
             <div class="footer-brand">TechZone Automotive</div>
@@ -1021,7 +1088,7 @@
             <div class="footer-divider"></div>
             
             <div class="footer-social">
-                <a href="https://www.facebook.com/49techzone" target="_blank" rel="noopener">Facebook</a>
+                <a href="https://facebook.com/49techzone" target="_blank" rel="noopener">Facebook</a>
                 <a href="https://tiktok.com/@techzone_automotive" target="_blank" rel="noopener">TikTok</a>
             </div>
         </div>
