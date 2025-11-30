@@ -6,7 +6,7 @@
       "baudRate": 921600,
       "parts": [
         {
-          "path": "FW_V2_V202.bin",
+          "path": "FW_V2_V203.bin",
           "offset": 0
         }
       ]
