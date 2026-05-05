@@ -457,7 +457,7 @@
                 <div id="flash-button-container">
                     <!-- Component sẽ được render ở đây -->
                 </div>
-                <a id="btnOTA" href="#" class="ota-btn" target="_blank">⬇️ TẢI FIRMWARE (FILE OTA)</a>
+                <a id="btnOTA" href="#" class="ota-btn" target="_blank" download>⬇️ TẢI FIRMWARE (FILE OTA)</a>
             </div>
             
             <div class="alert-box success-box hidden" id="success-message">
@@ -605,9 +605,9 @@
             
             const otaBtn = document.getElementById('btnOTA');
             if (selectedHardware === 'V1') {
-                otaBtn.href = "https://drive.google.com/uc?export=download&id=1ho3GfsVrAfFR7ztUnIdn5BGmIG98Ms6d";
+                otaBtn.href = "firmware-V1-OTA.bin";
             } else {
-                otaBtn.href = "https://drive.google.com/uc?export=download&id=1RSCJTnwI9JLiC8F9iaPV3vt13HxUNc9Z"; // <-- Sửa link tải V2 tại đây
+                otaBtn.href = "firmware-V2-OTA.bin";
             }
             
             setTimeout(() => {
