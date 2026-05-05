@@ -1,10 +1,10 @@
 {
   "hw_v1": {
     "version": "V3.0.0",
-    "file": "FW_V1_V300_EN.bin"
+    "file": "firmware-V1-OTA.bin"
   },
   "hw_v2": {
     "version": "V3.0.0",
-    "file": "FW_V2_V300_EN.bin"
+    "file": "firmware-V2-OTA.bin"
   }
 }
