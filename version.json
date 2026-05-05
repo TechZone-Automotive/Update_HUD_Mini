@@ -1,0 +1,10 @@
+{
+  "hw_v1": {
+    "version": "V3.0.0",
+    "file": "FW_V1_V300_EN.bin"
+  },
+  "hw_v2": {
+    "version": "V3.0.0",
+    "file": "FW_V2_V300_EN.bin"
+  }
+}
